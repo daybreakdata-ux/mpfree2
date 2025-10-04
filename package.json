@@ -1,0 +1,96 @@
+{
+  "name": "mpfree-desktop",
+  "version": "1.0.0",
+  "description": "AI-Powered YouTube Audio Converter by Daybreak Design",
+  "main": "public/electron.js",
+  "private": true,
+  "author": "Daybreak Design",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "electron": "^22.0.0",
+    "electron-builder": "^24.0.0",
+    "axios": "^1.4.0",
+    "fluent-ffmpeg": "^2.1.2",
+    "ytdl-core": "^4.11.5",
+    "node-id3": "^0.2.3",
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "multer": "^1.4.5",
+    "electron-is-dev": "^2.0.0"
+  },
+  "scripts": {
+    "electron": "electron .",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "electron-dev": "concurrently \"npm start\" \"wait-on http://localhost:3000 && electron .\"",
+    "electron-pack": "electron-builder",
+    "preelectron-pack": "npm run build",
+    "dist": "npm run build && electron-builder --publish=never",
+    "dist-linux": "npm run build && electron-builder --linux",
+    "dist-win": "npm run build && electron-builder --win",
+    "dist-all": "npm run build && electron-builder --mac --linux --win",
+    "dist-mac": "npm run build && electron-builder --mac"
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0",
+    "wait-on": "^7.0.1"
+  },
+  "homepage": "./",
+  "build": {
+    "appId": "com.daybreakdesign.mpfree",
+    "productName": "MPFree",
+    "directories": {
+      "buildResources": "build"
+    },
+    "files": [
+      "build/**/*",
+      "node_modules/**/*",
+      "public/electron.js",
+      "public/preload.js"
+    ],
+    "mac": {
+      "icon": "build/icon.icns",
+      "category": "public.app-category.music"
+    },
+    "win": {
+      "icon": "build/icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "linux": {
+      "icon": "build/icon.png",
+      "target": [
+        {
+          "target": "deb",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "category": "AudioVideo"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}
